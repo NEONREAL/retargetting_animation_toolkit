@@ -1,0 +1,28 @@
+name: Push Builds to gh-page
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0  # need full history for gh-page
+
+      - name: Fetch or create gh-page
+        run: |
+          git fetch origin gh-page || true
+          git checkout gh-page || git checkout --orphan gh-page
+
+      - name: Copy builds from main
+        run: |
+          mkdir -p builds
+          git checkout main -- builds/
+          git add builds/
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -m "Update builds from main" || echo "Nothing to commit"
+          git push origin gh-page
