@@ -2,10 +2,11 @@ import bpy  # type: ignore
 
 # preferences
 from .preferences import Sample_Preferences
+from .misc.MoveProps import MoveProps
 
 # Operators
 from .operators.OBJECT_OT_Sample import OBJECT_OT_Sample
-from .operators.DUMMY_OT_DummyOperator import DUMMY_OT_DummyOperator
+from .operators.OBJECT_OT_BakeAnimation import OBJECT_OT_BakeAnimation
 
 # panels
 from .panels.VIEW3D_PT_UI_Sample import VIEW3D_PT_UI_Sample
@@ -47,29 +48,30 @@ bl_info = {
     "location": "Npanel",
     "support": "COMMUNITY",
     "category": "UI",
-}
+ }
 
 classes = [
     # preferences
     Sample_Preferences,
+    MoveProps,
     # operators:
     OBJECT_OT_Sample,
-    DUMMY_OT_DummyOperator,
+    OBJECT_OT_BakeAnimation,
     # panels:
     VIEW3D_PT_UI_Sample,
 ]
 
 
+
 def register():
     for i in classes:
         bpy.utils.register_class(i)
+    bpy.types.Scene.move_props = bpy.props.PointerProperty(type=MoveProps)
 
 
 def unregister():
+    del bpy.types.Scene.move_props
     for i in reversed(classes):
         bpy.utils.unregister_class(i)
 
-
-if __name__ == "__main__":
-    register()
 

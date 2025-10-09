@@ -34,4 +34,3 @@ def get_preferences():
 
 def get_operator(name):
     return bl_id_prefix + "." + name
-

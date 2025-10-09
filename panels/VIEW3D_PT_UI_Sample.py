@@ -10,11 +10,9 @@ class VIEW3D_PT_UI_Sample(bpy.types.Panel):
     bl_category = AddonProperties.panel_category
 
     def draw(self, context):
+        props = context.scene.move_props
         layout = self.layout
         box = layout.box()
-        box.label(text="you can give me a name!", icon="OUTLINER_DATA_LIGHT")
-        box.operator(get_operator("operator"), text="example operator", icon="BLENDER")
-
-        row = layout.row()
-        row.active = False
-        row.label(text="made by Fxnarji", icon="SHADERFX")
+        box.prop(props, "source_rig", text="Source")
+        box.prop(props, "target_rig", text="Target")
+        box.operator(get_operator("bake_animation"), text="bake")
