@@ -1,0 +1,35 @@
+
+name: Push to Another Repo
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source repo
+        uses: actions/checkout@v4
+
+      - name: Prepare files
+        run: |
+          mkdir temp_push
+          cp -r build/* temp_push/
+          cd temp_push
+          git init
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated push from source-repo"
+
+      - name: Push to target repo
+        env:
+          TARGET_REPO: "user/target-repo"
+          TARGET_BRANCH: "main"
+          TOKEN: ${{ secrets.PUSH_TOKEN }}
+        run: |
+          cd temp_push
+          git remote add dest https://x-access-token:${TOKEN}@github.com/${TARGET_REPO}.git
+          git push --force dest main:${TARGET_BRANCH}
