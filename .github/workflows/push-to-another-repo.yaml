@@ -35,7 +35,7 @@ jobs:
 
       - name: Push to target repo
         env:
-          TARGET_REPO: "Fxnarji/extensions"
+          TARGET_REPO: "neonreal/extensions"
           TARGET_BRANCH: "main"
           TOKEN: ${{ secrets.PUSH_TOKEN }}
         run: |
