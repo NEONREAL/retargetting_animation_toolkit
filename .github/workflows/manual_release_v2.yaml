@@ -19,7 +19,7 @@ jobs:
 
       - name: Remove old versions
         run: |
-          echo | ls /docs
+          echo | ls docs/
           rm -rf /docs
 
       - name: Build Blender add-on
