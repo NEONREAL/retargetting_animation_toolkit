@@ -20,7 +20,7 @@ jobs:
 
       - name: Prepare files
         env: 
-          DIRECTORY: $ {{inputs.directory}}
+          DIRECTORY: ${{inputs.directory}}
         run: |
           mkdir temp_push
           mkdir temp_push/$DIRECTORY
