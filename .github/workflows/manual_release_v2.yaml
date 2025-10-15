@@ -18,8 +18,7 @@ jobs:
           version: "4.5"  # replace with the exact Blender version you want
 
       - name: Remove old versions
-        run: |
-          rm -rf docs/
+        run: 
 
       - name: Build Blender add-on
         run: |
@@ -28,8 +27,8 @@ jobs:
 
       - name: Commit and push build artifacts
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
           git add docs/
           git commit -m "Update build and index.json" || echo "No changes to commit"
           git push origin HEAD:main
