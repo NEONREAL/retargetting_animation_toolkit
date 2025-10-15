@@ -7,6 +7,7 @@ from .misc.MoveProps import MoveProps
 # Operators
 from .operators.OBJECT_OT_Sample import OBJECT_OT_Sample
 from .operators.OBJECT_OT_BakeAnimation import OBJECT_OT_BakeAnimation
+from .operators.OBJECT_OT_FixScale import OBJECT_OT_FixScale
 
 # panels
 from .panels.VIEW3D_PT_UI_Sample import VIEW3D_PT_UI_Sample
@@ -48,7 +49,7 @@ bl_info = {
     "location": "Npanel",
     "support": "COMMUNITY",
     "category": "UI",
- }
+}
 
 classes = [
     # preferences
@@ -57,10 +58,10 @@ classes = [
     # operators:
     OBJECT_OT_Sample,
     OBJECT_OT_BakeAnimation,
+    OBJECT_OT_FixScale,
     # panels:
     VIEW3D_PT_UI_Sample,
 ]
-
 
 
 def register():
@@ -73,5 +74,3 @@ def unregister():
     del bpy.types.Scene.move_props
     for i in reversed(classes):
         bpy.utils.unregister_class(i)
-
-

@@ -6,6 +6,16 @@ from ..misc import MoveProps
 class OBJECT_OT_BakeAnimation(bpy.types.Operator):
     bl_idname = get_operator("bake_animation")
     bl_label = "Dummy Operator"
+    bl_options = {"REGISTER", "UNDO"}
+
+    frame_start: bpy.props.IntProperty(name="Start Frame", default=0)  # type: ignore
+    frame_end: bpy.props.IntProperty(name="End Frame", default=250)  # type: ignore
+
+    def invoke(self, context, event):
+        # open a dialog where the user can edit the properties
+        self.frame_start = context.scene.frame_start
+        self.frame_end = context.scene.frame_end
+        return context.window_manager.invoke_props_dialog(self)
 
     def execute(self, context):
         self.target_rig = context.scene.move_props["target_rig"]
@@ -13,8 +23,7 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         self.fk_bone_dict = MoveProps.FK_bones
         self.ik_bone_dict = MoveProps.IK_bones
         self.root_bone_dict = MoveProps.root_bones
-        self.temp_prefix = "uihawdhawhdaw"
-        print("I did absolutely nothing!")
+        self.temp_prefix = "TEMP_BAKING_MODIFIER"
 
         # mute all constraints
         self.mute_constraints()
@@ -32,7 +41,8 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         self.bake_action(self.ik_bone_dict)
 
         # unmute all constraints
-        # self.remove_temp_constraints()
+        self.remove_temp_constraints()
+
         return {"FINISHED"}
 
     def add_constraints(self, bone_dict, ik=False) -> None:
@@ -62,8 +72,8 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
 
         # bake action
         bpy.ops.nla.bake(
-            frame_start=1,
-            frame_end=250,
+            frame_start=self.frame_start,
+            frame_end=self.frame_end,
             only_selected=True,
             visual_keying=True,
             clear_constraints=False,
