@@ -26,16 +26,31 @@ jobs:
       - name: Prepare files
         env: 
           DIRECTORY: ${{inputs.directory}}
+
         run: |
-          mkdir temp_push
-          cp -r "$GITHUB_WORKSPACE/$DIRECTORY/." temp_push/
           cd temp_push
-          git init
-          git checkout -b main
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .
-          git commit -m "Automated push from source-repo"
+          git clone https://x-access-token:${{ secrets.PUSH_TOKEN }}@github.com/neonreal/extensions.git .
+          git checkout main
+
+          # Get the new addon file (assume only one file in directory)
+          NEW_FILE="$(ls "$GITHUB_WORKSPACE/$DIRECTORY")"
+          NEW_BASENAME="$(basename "$NEW_FILE")"
+
+          # Extract the addon name (everything before the last underscore + version)
+          # Example: 'blender_extension_1.1.0.zip' -> 'blender_extension'
+          ADDON_NAME="$(echo "$NEW_BASENAME" | sed -E 's/_[0-9]+\.[0-9]+\.[0-9]+\.zip$//')"
+
+          # Remove any old version of this addon
+          rm -f $(ls | grep -E "^${ADDON_NAME}_[0-9]+\.[0-9]+\.[0-9]+\.zip$") || true
+
+          # Copy new addon file
+          cp "$GITHUB_WORKSPACE/$DIRECTORY/$NEW_BASENAME" .
+
+          # Commit and push
+          git add "$NEW_BASENAME"
+          git commit -m "Update $NEW_BASENAME" || echo "No changes to commit"
+          git push origin main
+
 
       - name: Push to target repo
         env:
