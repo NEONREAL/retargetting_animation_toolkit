@@ -2,6 +2,10 @@
 name: Push to Another Repository
 on:
   workflow_dispatch:
+    inputs:
+      directory:
+        required: true
+        default: docs
   workflow_call:
     inputs:
       directory:
