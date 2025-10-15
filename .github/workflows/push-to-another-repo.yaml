@@ -1,9 +1,14 @@
 
 name: Push to Another Repository
 on:
-  push:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      directory:
+        required: true
+        type: string
+    secrets:
+      PUSH_TOKEN:
+        required: true
 
 jobs:
   sync:
@@ -15,9 +20,10 @@ jobs:
 
       - name: Prepare files
         run: |
+          directory = $ {{inputs.directory}}
           mkdir temp_push
-          mkdir temp_push/docs
-          cp -r docs/* temp_push/docs/
+          mkdir temp_push/$directory 
+          cp -r $directory/* temp_push/$directory/
           cd temp_push
           git init
           git checkout -b main
