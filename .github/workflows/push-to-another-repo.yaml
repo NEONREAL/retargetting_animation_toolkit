@@ -28,6 +28,7 @@ jobs:
           DIRECTORY: ${{inputs.directory}}
 
         run: |
+          mkdir temp_push
           cd temp_push
           git clone https://x-access-token:${{ secrets.PUSH_TOKEN }}@github.com/neonreal/extensions.git .
           git checkout main
