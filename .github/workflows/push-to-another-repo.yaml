@@ -1,5 +1,5 @@
 
-name: Push to Another Repo
+name: Push to Another Repository
 on:
   push:
     branches:
