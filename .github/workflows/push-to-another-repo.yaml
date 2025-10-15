@@ -1,6 +1,7 @@
 
 name: Push to Another Repository
 on:
+  workflow_dispatch:
   workflow_call:
     inputs:
       directory:
@@ -23,8 +24,7 @@ jobs:
           DIRECTORY: ${{inputs.directory}}
         run: |
           mkdir temp_push
-          mkdir temp_push/$DIRECTORY
-          cp -r $DIRECTORY/* temp_push/$DIRECTORY/
+          cp -r $DIRECTORY/* temp_push/
           cd temp_push
           git init
           git checkout -b main
