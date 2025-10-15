@@ -16,7 +16,8 @@ jobs:
       - name: Prepare files
         run: |
           mkdir temp_push
-          cp -r docs/* temp_push/
+          mkdir temp_push/docs
+          cp -r docs/* temp_push/docs/
           cd temp_push
           git init
           git checkout -b main
