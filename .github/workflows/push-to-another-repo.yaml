@@ -30,6 +30,9 @@ jobs:
         run: |
           mkdir temp_push
           cd temp_push
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
           git clone https://x-access-token:${{ secrets.PUSH_TOKEN }}@github.com/neonreal/extensions.git .
           git checkout main
 
