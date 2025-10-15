@@ -31,6 +31,7 @@ jobs:
           git push origin HEAD:main
 
   deploy:
+    needs: build
     uses: ./.github/workflows/push-to-another-repo.yaml
     with:
       directory: docs

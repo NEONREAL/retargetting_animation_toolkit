@@ -19,11 +19,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare files
+        env: 
+          DIRECTORY: $ {{inputs.directory}}
         run: |
-          directory = $ {{inputs.directory}}
           mkdir temp_push
-          mkdir temp_push/$directory 
-          cp -r $directory/* temp_push/$directory/
+          mkdir temp_push/$DIRECTORY
+          cp -r $DIRECTORY/* temp_push/$DIRECTORY/
           cd temp_push
           git init
           git checkout -b main
