@@ -24,7 +24,7 @@ jobs:
           DIRECTORY: ${{inputs.directory}}
         run: |
           mkdir temp_push
-          cp -r $DIRECTORY/* temp_push/
+          cp -r "$GITHUB_WORKSPACE/$DIRECTORY/." temp_push/
           cd temp_push
           git init
           git checkout -b main
