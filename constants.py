@@ -11,7 +11,7 @@ user_name = "Fxnarji"
 repo_name = "blender_extension_template"
 
 # has to be all lowercase
-bl_id_prefix = "my_addon"
+bl_id_prefix = "fonce_anims"
 
 
 class AddonProperties:
