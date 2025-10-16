@@ -1,10 +1,10 @@
 schema_version = "1.0.0"
 
-id = "your_repo_name"
+id = "Fonce Animation Tools"
 version = "1.2.9"
-name = "FX Basic Extension Template"
-tagline = "A basic Extension Template to help you get started"
-maintainer = "your-mail@here.com"
+name = "Tooling for Animation and Retargetting"
+tagline = "Tooling for Animation and Retargetting""
+maintainer = "fxn-work@proton.me"
 type = "add-on"
 
 blender_version_min = "4.2.0"
