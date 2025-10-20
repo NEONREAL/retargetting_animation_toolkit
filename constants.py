@@ -16,7 +16,7 @@ bl_id_prefix = "fonce_anims"
 
 class AddonProperties:
     module_name = __package__
-    panel_category = "FancyPanel"
+    panel_category = "Fonce"
 
 
 def get_manifest():

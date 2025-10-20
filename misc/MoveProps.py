@@ -58,6 +58,8 @@ class MoveProps(bpy.types.PropertyGroup):
 
     target_rig: bpy.props.PointerProperty(type=bpy.types.Object, name="Rig")
 
-    delete: bpy.props.BoolProperty(name="Delete old Property")
+    directory: bpy.props.StringProperty(subtype="DIR_PATH")
+
+    name: bpy.props.StringProperty()
 
     # etc.

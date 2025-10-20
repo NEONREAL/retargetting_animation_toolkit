@@ -1,3 +1,4 @@
+from typing import ValuesView
 import bpy  # type: ignore
 
 # preferences
@@ -5,12 +6,14 @@ from .preferences import Sample_Preferences
 from .misc.MoveProps import MoveProps
 
 # Operators
-from .operators.OBJECT_OT_Sample import OBJECT_OT_Sample
+from .operators.OBJECT_OT_PickObject import OBJECT_OT_PickObject
 from .operators.OBJECT_OT_BakeAnimation import OBJECT_OT_BakeAnimation
 from .operators.OBJECT_OT_FixScale import OBJECT_OT_FixScale
+from .operators.FILE_OT_Export import FILE_OT_Export
 
 # panels
-from .panels.VIEW3D_PT_UI_Sample import VIEW3D_PT_UI_Sample
+from .panels.VIEW3D_PT_UI_Retargetting import VIEW3D_PT_UI_Retargetting
+from .panels.VIEW3D_PT_UI_Export import VIEW3D_PT_UI_Export
 
 
 # reading values such as name, version and more from toml so there is no need to change information in two places
@@ -56,11 +59,13 @@ classes = [
     Sample_Preferences,
     MoveProps,
     # operators:
-    OBJECT_OT_Sample,
+    OBJECT_OT_PickObject,
     OBJECT_OT_BakeAnimation,
     OBJECT_OT_FixScale,
+    FILE_OT_Export,
     # panels:
-    VIEW3D_PT_UI_Sample,
+    VIEW3D_PT_UI_Retargetting,
+    VIEW3D_PT_UI_Export,
 ]
 
 
