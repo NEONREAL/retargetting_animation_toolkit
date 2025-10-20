@@ -60,6 +60,6 @@ class MoveProps(bpy.types.PropertyGroup):
 
     directory: bpy.props.StringProperty(subtype="DIR_PATH")
 
-    name: bpy.props.StringProperty()
+    action_name: bpy.props.StringProperty()
 
     # etc.

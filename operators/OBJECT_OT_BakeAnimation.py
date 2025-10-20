@@ -20,6 +20,7 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
     def execute(self, context):
         self.target_rig = context.scene.move_props["target_rig"]
         self.source_rig = context.scene.move_props["source_rig"]
+        self.action_name = context.scene.move_props["action_name"]
         self.fk_bone_dict = MoveProps.FK_bones
         self.ik_bone_dict = MoveProps.IK_bones
         self.root_bone_dict = MoveProps.root_bones
@@ -69,6 +70,16 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         for bone in self.target_rig.pose.bones:
             if bone.name in bone_dict.keys():
                 bone.bone.select = True
+
+        action = None
+        if self.target_rig.animation_data.action:
+            action = self.target_rig.animation_data.action
+            print(action.name)
+
+        if action is None:
+            new_action = bpy.data.actions.new(name=self.action_name)
+            self.target_rig.animation_data_create()
+            self.target_rig.animation_data.action = new_action
 
         # bake action
         bpy.ops.nla.bake(

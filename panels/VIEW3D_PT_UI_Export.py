@@ -13,7 +13,6 @@ class VIEW3D_PT_UI_Export(bpy.types.Panel):
         layout = self.layout
         box = layout.box()
         props = context.scene.move_props
-        box.prop(props, "name", text="Filename")
         box.prop(props, "directory", text="Export Path")
         row = box.row()
         row.scale_y = 1.5

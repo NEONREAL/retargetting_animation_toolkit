@@ -37,6 +37,9 @@ class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
         target_rig = props["target_rig"]
         target_valid = isinstance(target_rig, bpy.types.Object)
 
+        # AnimationName
+        box.prop(props, "action_name", text="Filename")
+
         # scale button
         scale = box.row()
         scale.enabled = source_valid
