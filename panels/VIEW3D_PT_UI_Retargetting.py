@@ -38,7 +38,7 @@ class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
         target_valid = isinstance(target_rig, bpy.types.Object)
 
         # AnimationName
-        box.prop(props, "action_name", text="Filename")
+        box.prop(props, "action_name", text="Action Name")
 
         # scale button
         scale = box.row()
@@ -52,15 +52,19 @@ class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
         bake.operator(get_operator("bake_animation"), text="bake")
 
         # warning if mismatched scale
-        if sum(source_rig.scale) != sum(target_rig.scale):
-            warning_row = box.row()
-            warning_row.alert = True
-            warning_row.label(text="Warning! Mismatching scale", icon="ERROR")
+        if source_valid and target_valid:
+            if sum(source_rig.scale) != sum(target_rig.scale):
+                warning_row = box.row()
+                warning_row.alert = True
+                warning_row.label(text="Warning! Mismatching scale", icon="ERROR")
 
         # transforms box
         box = box.box()
         row = box.row()
         row.enabled = False
+        if not source_valid or not target_valid:
+            row.label(text="select both rigs", icon="INFO")
+            return
         if source_valid:
             source_col = row.column()
             source_col.label(text="Source Scale")

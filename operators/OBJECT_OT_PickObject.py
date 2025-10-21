@@ -11,7 +11,6 @@ class OBJECT_OT_PickObject(bpy.types.Operator):
 
     rig: bpy.props.StringProperty()  # type: ignore
 
-    # optional but handy: this will make sure the operator can only run when there is an active object
     @classmethod
     def poll(cls, context):
         return context.active_object is not None

@@ -66,6 +66,12 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
                 con.mute = True
 
     def bake_action(self, bone_dict) -> None:
+
+        bpy.context.view_layer.objects.active = self.target_rig
+        self.target_rig.select_set(True)        
+
+        bpy.ops.object.mode_set(mode="POSE")
+
         # select all the proper bones
         for bone in self.target_rig.pose.bones:
             if bone.name in bone_dict.keys():
