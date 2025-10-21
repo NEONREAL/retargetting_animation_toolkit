@@ -34,3 +34,8 @@ def get_preferences():
 
 def get_operator(name):
     return bl_id_prefix + "." + name
+
+def get_prism_core_utils_active():
+    if "prism_core_utils" in bpy.context.preferences.addons:
+        return True
+    return False
