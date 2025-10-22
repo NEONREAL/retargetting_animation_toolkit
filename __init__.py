@@ -10,6 +10,7 @@ from .operators.OBJECT_OT_PickObject import OBJECT_OT_PickObject
 from .operators.OBJECT_OT_BakeAnimation import OBJECT_OT_BakeAnimation
 from .operators.OBJECT_OT_FixScale import OBJECT_OT_FixScale
 from .operators.FILE_OT_Export import FILE_OT_Export
+from .operators.OBJECT_OT_GenerateDeformArmature import OBJECT_OT_GenerateDeformArmature
 
 # panels
 from .panels.VIEW3D_PT_UI_Retargetting import VIEW3D_PT_UI_Retargetting
@@ -63,6 +64,7 @@ classes = [
     OBJECT_OT_BakeAnimation,
     OBJECT_OT_FixScale,
     FILE_OT_Export,
+    OBJECT_OT_GenerateDeformArmature,
     # panels:
     VIEW3D_PT_UI_Retargetting,
     VIEW3D_PT_UI_Export,
