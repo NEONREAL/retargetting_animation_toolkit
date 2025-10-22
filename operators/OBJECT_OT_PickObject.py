@@ -22,7 +22,13 @@ class OBJECT_OT_PickObject(bpy.types.Operator):
             self.report({"WARNING"}, "Object is not an Armature!")
             return {"FINISHED"}
 
-        props = context.scene.move_props
-        props[self.rig] = selected_obj
+
+        props = getattr(context.scene, "move_props", None)
+        if props is None:
+            context.scene.move_props = bpy.context.scene.move_props  # trigger init
+            props = context.scene.move_props
+
+        if hasattr(props, self.rig):
+            setattr(props, self.rig, selected_obj)
 
         return {"FINISHED"}

@@ -12,7 +12,7 @@ class FILE_OT_Export(bpy.types.Operator):
         rig = context.scene.move_props["source_rig"]
         action = rig.animation_data.action
         props = context.scene.move_props
-        name = props["name"]
+        name = props["action_name"]
         if not name.endswith(".fbx"):
             name += ".fbx"
 
@@ -25,6 +25,11 @@ class FILE_OT_Export(bpy.types.Operator):
             object_types={"ARMATURE"},
             add_leaf_bones=False,
             use_armature_deform_only=True,
+            bake_anim_use_nla_strips=True, 
+            bake_anim_use_all_actions=True, 
+            axis_forward='-Z',
+            axis_up='X'
+
         )
 
         return {"FINISHED"}

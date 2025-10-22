@@ -62,4 +62,3 @@ class MoveProps(bpy.types.PropertyGroup):
 
     action_name: bpy.props.StringProperty()
 
-    # etc.

@@ -20,7 +20,7 @@ class VIEW3D_PT_UI_Export(bpy.types.Panel):
         if get_prism_core_utils_active():
             status_row.label(text="Prism Core Utils is active", icon="LINKED")
         else:
-            status_row.label(text="no prism tools detected", icon="UNLINKED")
+            status_row.label(text="not connected to prism, manual export", icon="UNLINKED")
             box.prop(props, "directory", text="Path")
         row = box.row()
         row.scale_y = 1.5

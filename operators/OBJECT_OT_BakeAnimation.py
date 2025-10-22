@@ -1,7 +1,7 @@
 import bpy  # type: ignore
 from ..constants import get_operator
 from ..misc import MoveProps
-
+import time
 
 class OBJECT_OT_BakeAnimation(bpy.types.Operator):
     bl_idname = get_operator("bake_animation")
@@ -26,6 +26,8 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         self.root_bone_dict = MoveProps.root_bones
         self.temp_prefix = "TEMP_BAKING_MODIFIER"
 
+        start = time.time()
+
         # mute all constraints
         self.mute_constraints()
 
@@ -43,6 +45,9 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
 
         # unmute all constraints
         self.remove_temp_constraints()
+
+        end = time.time()
+        self.report({'INFO'},f"Baking completed in {end - start:.3f} seconds.")
 
         return {"FINISHED"}
 
@@ -67,9 +72,16 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
 
     def bake_action(self, bone_dict) -> None:
 
+        # old mode and selection
+        old_mode = bpy.context.mode
+        old_selection = bpy.context.selected_objects[:]
+        bpy.ops.object.select_all(action="DESELECT")
+
+        # select rig and go into pose mode
+        if bpy.context.mode != "OBJECT":
+            bpy.ops.object.mode_set(mode="OBJECT")
         bpy.context.view_layer.objects.active = self.target_rig
         self.target_rig.select_set(True)        
-
         bpy.ops.object.mode_set(mode="POSE")
 
         # select all the proper bones
@@ -82,7 +94,7 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
             action = self.target_rig.animation_data.action
             print(action.name)
 
-        if action is None:
+        if action is None or action.name != self.action_name:
             new_action = bpy.data.actions.new(name=self.action_name)
             self.target_rig.animation_data_create()
             self.target_rig.animation_data.action = new_action
@@ -97,6 +109,13 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
             use_current_action=True,
             bake_types={"POSE"},
         )
+
+        # restore old mode and selection
+        bpy.ops.object.mode_set(mode=old_mode)
+        bpy.ops.object.select_all(action="DESELECT")
+        for obj in old_selection:
+            obj.select_set(True)
+
 
     def remove_temp_constraints(self) -> None:
         for bone in self.target_rig.pose.bones:

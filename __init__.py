@@ -73,6 +73,7 @@ def register():
     for i in classes:
         bpy.utils.register_class(i)
     bpy.types.Scene.move_props = bpy.props.PointerProperty(type=MoveProps)
+    
 
 
 def unregister():
