@@ -54,9 +54,11 @@ IK_bones = {
 class MoveProps(bpy.types.PropertyGroup):
     Modes = [("edit", "Edit", ""), ("pose", "Pose", "")]
 
-    source_rig: bpy.props.PointerProperty(type=bpy.types.Object, name="Rig")
+    source_rig: bpy.props.PointerProperty(type=bpy.types.Object, name="Source")
 
-    target_rig: bpy.props.PointerProperty(type=bpy.types.Object, name="Rig")
+    target_rig: bpy.props.PointerProperty(type=bpy.types.Object, name="Target")
+
+    helper_empty: bpy.props.PointerProperty(type=bpy.types.Object, name="Empty")
 
     directory: bpy.props.StringProperty(subtype="DIR_PATH")
 

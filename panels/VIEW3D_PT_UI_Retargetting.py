@@ -43,8 +43,22 @@ class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
         # scale button
         scale = box.row()
         scale.enabled = source_valid
-        scale.operator(get_operator("fix_scale"), text="Fix Scale")
+        scale.operator(get_operator("fix_scale"), text="Prepare")
 
+        # Space Switching section
+        space_switch = box.column()
+
+        # source space switch
+        if source_valid:
+            source_bone = source_rig.pose.bones.get("Hips")
+            if source_bone:
+                self.draw_space_switch(space_switch, source_bone, "Copy Transforms", "Source:")
+
+        if target_valid:
+            target_bone = target_rig.pose.bones.get("ROOT")
+            if target_bone:
+                self.draw_space_switch(space_switch, target_bone, "Copy Transforms", "Target:")
+        
         # bake button
         bake = box.row()
         bake.scale_y = 1.5
@@ -78,3 +92,21 @@ class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
             target_col.label(text=f"x {target_rig.scale[0]:.3f}")
             target_col.label(text=f"y {target_rig.scale[1]:.3f}")
             target_col.label(text=f"z {target_rig.scale[2]:.3f}")
+
+
+    def draw_space_switch(self, layout, bone, constraint_name, label_text, icon="ORIENTATION_GLOBAL"):
+        row = layout.row()
+        
+        # try to get the constraint
+        con = bone.constraints.get(constraint_name)
+        if con:
+            # read enabled state and display
+            is_world = con.enabled
+            display_text = "World" if is_world else "Local"
+            row.label(text=label_text)
+            row.prop(con, "enabled", text=display_text, icon=icon)
+        else:
+            # fallback if constraint missing
+            row.label(text=f"{label_text} (missing constraint)", icon="ERROR")
+
+

@@ -46,6 +46,9 @@ class VIEW3D_PT_UI_Export(bpy.types.Panel):
 
 
     def get_actions_for_rig(self, rig):
+        if not rig:
+            return []
+        
         if rig.type != 'ARMATURE':
             raise TypeError(f"{rig.name} is not an armature")
 

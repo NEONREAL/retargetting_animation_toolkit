@@ -49,7 +49,46 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         end = time.time()
         self.report({'INFO'},f"Baking completed in {end - start:.3f} seconds.")
 
+        # add constraints for root
+        limit_location = self.target_rig.pose.bones["ROOT"].constraints.new("LIMIT_LOCATION")
+        limit_location.use_min_x = True
+        limit_location.use_min_y = True
+        limit_location.use_min_z = True
+
+        limit_location.use_max_x = True
+        limit_location.use_max_y = True
+        limit_location.use_max_z = True
+
+
+        copy_transform = self.target_rig.pose.bones["ROOT"].constraints.new("COPY_TRANSFORMS")
+        copy_transform.target = context.scene.move_props.helper_empty
+
+        
+        # Get the baked action
+        ad = self.target_rig.animation_data
+        baked_action = ad.action
+
+        # Ensure animation data exists
+        if not ad:
+            self.target_rig.animation_data_create()
+            ad = self.target_rig.animation_data
+
+        # Push baked action into a new NLA track
+        bpy.ops.object.mode_set(mode='OBJECT')
+        track = ad.nla_tracks.new()
+        strip = track.strips.new(
+            name=f"{self.action_name}_NLA",
+            start=self.frame_start,
+            action=baked_action,
+        )
+        strip.blend_type = 'REPLACE'
+        strip.use_auto_blend = True
+
+        # add new blank action
+        new_action = bpy.data.actions.new(name=f"{self.action_name}")
+        ad.action = new_action
         return {"FINISHED"}
+
 
     def add_constraints(self, bone_dict, ik=False) -> None:
         for bone in self.target_rig.pose.bones:
@@ -109,6 +148,8 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
             use_current_action=True,
             bake_types={"POSE"},
         )
+
+
 
         # restore old mode and selection
         bpy.ops.object.mode_set(mode=old_mode)

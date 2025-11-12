@@ -11,11 +11,12 @@ from .operators.OBJECT_OT_BakeAnimation import OBJECT_OT_BakeAnimation
 from .operators.OBJECT_OT_FixScale import OBJECT_OT_FixScale
 from .operators.FILE_OT_Export import FILE_OT_Export
 from .operators.OBJECT_OT_GenerateDeformArmature import OBJECT_OT_GenerateDeformArmature
+from .operators.ANIM_OT_Pin import ANIM_OT_Pin
 
 # panels
 from .panels.VIEW3D_PT_UI_Retargetting import VIEW3D_PT_UI_Retargetting
 from .panels.VIEW3D_PT_UI_Export import VIEW3D_PT_UI_Export
-
+from .panels.VIEW3D_PT_UI_Animating import VIEW3D_PT_UI_Animating
 
 # reading values such as name, version and more from toml so there is no need to change information in two places
 def load_manifest_info():
@@ -63,11 +64,13 @@ classes = [
     OBJECT_OT_PickObject,
     OBJECT_OT_BakeAnimation,
     OBJECT_OT_FixScale,
-    FILE_OT_Export,
     OBJECT_OT_GenerateDeformArmature,
+    FILE_OT_Export,
+    ANIM_OT_Pin,
     # panels:
     VIEW3D_PT_UI_Retargetting,
     VIEW3D_PT_UI_Export,
+    VIEW3D_PT_UI_Animating,
 ]
 
 
