@@ -15,7 +15,6 @@ from .operators.ANIM_OT_Pin import ANIM_OT_Pin
 
 # panels
 from .panels.VIEW3D_PT_UI_Retargetting import VIEW3D_PT_UI_Retargetting
-from .panels.VIEW3D_PT_UI_Export import VIEW3D_PT_UI_Export
 from .panels.VIEW3D_PT_UI_Animating import VIEW3D_PT_UI_Animating
 
 # reading values such as name, version and more from toml so there is no need to change information in two places
@@ -69,7 +68,6 @@ classes = [
     ANIM_OT_Pin,
     # panels:
     VIEW3D_PT_UI_Retargetting,
-    VIEW3D_PT_UI_Export,
     VIEW3D_PT_UI_Animating,
 ]
 

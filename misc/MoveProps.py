@@ -64,3 +64,9 @@ class MoveProps(bpy.types.PropertyGroup):
 
     action_name: bpy.props.StringProperty()
 
+    pin_mode: bpy.props.EnumProperty(
+        name="Mode", items=[
+            ("NLA", "NLA", ""), 
+            ("ACTION", "ACTION", "")
+        ], 
+        default="NLA")
