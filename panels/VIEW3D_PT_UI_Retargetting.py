@@ -4,7 +4,7 @@ from ..constants import get_operator
 
 
 class VIEW3D_PT_UI_Retargetting(bpy.types.Panel):
-    bl_label = "Fonce"
+    bl_label = "Retargetting"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = AddonProperties.panel_category

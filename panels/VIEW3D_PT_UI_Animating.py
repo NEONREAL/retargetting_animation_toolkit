@@ -4,7 +4,7 @@ from ..constants import get_operator, get_prism_core_utils_active
 
 
 class VIEW3D_PT_UI_Animating(bpy.types.Panel):
-    bl_label = "Animation"
+    bl_label = "Cleanup"
     bl_space_type = "VIEW_3D"
     bl_region_type = "UI"
     bl_category = AddonProperties.panel_category
@@ -12,7 +12,7 @@ class VIEW3D_PT_UI_Animating(bpy.types.Panel):
     def draw(self, context):
         layout = self.layout
         box = layout.box()
-        box.label(text="Animation Tools")
+        box.label(text="Cleanup Tools")
         props = context.scene.move_props
 
         # Pin Mode Selection
