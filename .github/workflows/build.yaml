@@ -1,0 +1,14 @@
+# .github/workflows/build-and-deploy.yaml
+name: Build and Deploy
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  call:
+    uses: NEONREAL/build_and_deploy/.github/workflows/build_blender.yaml@main
+    secrets: inherit
