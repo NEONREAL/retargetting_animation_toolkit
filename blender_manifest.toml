@@ -1,13 +1,13 @@
 schema_version = "1.0.0"
 
 id = "fonce_animation_tools"
-version = "1.5.0"
+version = "0.2.1"
 name = "Fonce Animation and Retargetting Toolkit"
 tagline = "Tooling for Animation and Retargetting"
 maintainer = "fxn-work@proton.me"
 type = "add-on"
 
-blender_version_min = "4.5.0"
+blender_version_min = "5.0.0"
 
 license = [
   "SPDX:GPL-3.0-or-later",
