@@ -1,7 +1,7 @@
 schema_version = "1.0.0"
 
 id = "fonce_animation_tools"
-version = "0.2.1"
+version = "0.4.0"
 name = "Fonce Animation and Retargetting Toolkit"
 tagline = "Tooling for Animation and Retargetting"
 maintainer = "fxn-work@proton.me"
