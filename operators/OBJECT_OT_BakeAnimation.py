@@ -126,7 +126,7 @@ class OBJECT_OT_BakeAnimation(bpy.types.Operator):
         # select all the proper bones
         for bone in self.target_rig.pose.bones:
             if bone.name in bone_dict.keys():
-                bone.bone.select = True
+                bone.select = True
 
         action = None
         if self.target_rig.animation_data.action:
